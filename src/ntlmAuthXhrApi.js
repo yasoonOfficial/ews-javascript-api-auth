@@ -1,14 +1,16 @@
 "use strict";
-var fetch_1 = require("fetch");
+Object.defineProperty(exports, "__esModule", { value: true });
+var dns_all_fetch_1 = require("@yasoon/dns-all-fetch");
 var Promise = require("bluebird");
-var utils_1 = require("./utils");
+var http_1 = require("http");
 var https_1 = require("https");
+var utils_1 = require("./utils");
 var _a = require("ntlm-client"), createType1Message = _a.createType1Message, decodeType2Message = _a.decodeType2Message, createType3Message = _a.createType3Message; //ref: has NTLM v2 support // info: also possible to use this package in node.
 //var ntlm = require('httpntlm').ntlm; //removing httpntlm due to lack of NTLM v2
 // var HttpsAgent = require('agentkeepalive').HttpsAgent; // can use this instead of node internal http agent
 // var keepaliveAgent = new HttpsAgent(); // new HttpsAgent({ keepAliveMsecs :10000}); need to add more seconds to keepalive for debugging time. debugging is advised on basic auth only
 /** @internal */
-var ntlmAuthXhrApi = (function () {
+var ntlmAuthXhrApi = /** @class */ (function () {
     function ntlmAuthXhrApi(username, password, allowUntrustedCertificate) {
         if (allowUntrustedCertificate === void 0) { allowUntrustedCertificate = false; }
         this.stream = null;
@@ -38,13 +40,14 @@ var ntlmAuthXhrApi = (function () {
             //payload: xhroptions.data,
             headers: xhroptions.headers,
             method: 'GET',
-            agent: new https_1.Agent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }) //keepaliveAgent
+            agentHttps: new https_1.Agent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }),
+            agentHttp: new http_1.Agent({ keepAlive: true }) //keepaliveAgent
         };
         return new Promise(function (resolve, reject) {
             _this.ntlmPreCall(options).then(function (optionsWithNtlmHeader) {
                 optionsWithNtlmHeader['payload'] = xhroptions.data;
                 optionsWithNtlmHeader['method'] = xhroptions.type;
-                fetch_1.fetchUrl(xhroptions.url, optionsWithNtlmHeader, function (error, meta, body) {
+                dns_all_fetch_1.fetchUrl(xhroptions.url, optionsWithNtlmHeader, function (error, meta, body) {
                     if (error) {
                         reject(error);
                     }
@@ -77,13 +80,14 @@ var ntlmAuthXhrApi = (function () {
             //payload: xhroptions.data,
             headers: xhroptions.headers,
             method: 'GET',
-            agent: new https_1.Agent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }) //keepaliveAgent
+            agentHttps: new https_1.Agent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }),
+            agentHttp: new http_1.Agent({ keepAlive: true }) //keepaliveAgent
         };
         return new Promise(function (resolve, reject) {
             _this.ntlmPreCall(options).then(function (optionsWithNtlmHeader) {
                 optionsWithNtlmHeader['payload'] = xhroptions.data;
                 optionsWithNtlmHeader['method'] = xhroptions.type;
-                _this.stream = new fetch_1.FetchStream(xhroptions.url, optionsWithNtlmHeader);
+                _this.stream = new dns_all_fetch_1.FetchStream(xhroptions.url, optionsWithNtlmHeader);
                 _this.stream.on("data", function (chunk) {
                     //console.log(chunk.toString());
                     progressDelegate({ type: "data", data: chunk.toString() });
@@ -124,7 +128,7 @@ var ntlmAuthXhrApi = (function () {
             var type1msg = createType1Message(ntlmOptions.workstation, ntlmOptions.domain); // alternate client - ntlm-client
             options.headers['Authorization'] = type1msg;
             options.headers['Connection'] = 'keep-alive';
-            fetch_1.fetchUrl(options.url, options, function (error, meta, body) {
+            dns_all_fetch_1.fetchUrl(options.url, options, function (error, meta, body) {
                 if (error) {
                     reject(error);
                 }

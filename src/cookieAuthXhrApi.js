@@ -1,8 +1,9 @@
 "use strict";
-var fetch_1 = require("fetch");
+Object.defineProperty(exports, "__esModule", { value: true });
+var dns_all_fetch_1 = require("@yasoon/dns-all-fetch");
 var Promise = require("bluebird");
 var utils_1 = require("./utils");
-var cookieAuthXhrApi = (function () {
+var cookieAuthXhrApi = /** @class */ (function () {
     function cookieAuthXhrApi(username, password) {
         this.stream = null;
         this.username = null;
@@ -34,7 +35,7 @@ var cookieAuthXhrApi = (function () {
         return new Promise(function (resolve, reject) {
             _this.cookiesPreCall(options).then(function () {
                 options.cookies = _this.cookies;
-                fetch_1.fetchUrl(options.url, options, function (error, meta, body) {
+                dns_all_fetch_1.fetchUrl(options.url, options, function (error, meta, body) {
                     if (error) {
                         reject(error);
                     }
@@ -85,7 +86,7 @@ var cookieAuthXhrApi = (function () {
         return new Promise(function (resolve, reject) {
             _this.cookiesPreCall(options).then(function () {
                 options.cookies = _this.cookies;
-                _this.stream = new fetch_1.FetchStream(xhroptions.url, options);
+                _this.stream = new dns_all_fetch_1.FetchStream(xhroptions.url, options);
                 _this.stream.on("data", function (chunk) {
                     //console.log(chunk.toString());
                     progressDelegate({ type: "data", data: chunk.toString() });
@@ -141,7 +142,7 @@ var cookieAuthXhrApi = (function () {
                     disableRedirects: true
                 };
                 //obtaining cookies
-                fetch_1.fetchUrl(baseUrl, preauthOptions, function (error, meta, body) {
+                dns_all_fetch_1.fetchUrl(baseUrl, preauthOptions, function (error, meta, body) {
                     if (error) {
                         reject(error);
                     }

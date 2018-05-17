@@ -1,10 +1,10 @@
-import { FetchStream, fetchUrl } from 'fetch';
-import * as  Promise from "bluebird";
-import { IXHROptions, IXHRApi, IXHRProgress } from "./ews.partial";
+import { FetchStream, fetchUrl } from '@yasoon/dns-all-fetch';
+import * as Promise from "bluebird";
+import { Agent as httpAgent } from "http";
+import { Agent as httpsAgent } from "https";
+import { IXHRApi, IXHROptions, IXHRProgress } from "./ews.partial";
 import { setupXhrResponse } from "./utils";
 
-import { Agent as httpsAgent } from "https";
-import { Agent as httpAgent } from "http";
 
 var { createType1Message, decodeType2Message, createType3Message } = require("ntlm-client") //ref: has NTLM v2 support // info: also possible to use this package in node.
 
@@ -47,7 +47,7 @@ export class ntlmAuthXhrApi implements IXHRApi {
             headers: xhroptions.headers,
             method: 'GET',
             agentHttps: new httpsAgent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }), //keepaliveAgent
-            agentHttp: new httpAgent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }) //keepaliveAgent
+            agentHttp: new httpAgent({ keepAlive: true }) //keepaliveAgent
         }
 
         return new Promise<XMLHttpRequest>((resolve, reject) => {
@@ -91,7 +91,7 @@ export class ntlmAuthXhrApi implements IXHRApi {
             headers: xhroptions.headers,
             method: 'GET',
             agentHttps: new httpsAgent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }), //keepaliveAgent
-            agentHttp: new httpAgent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }) //keepaliveAgent
+            agentHttp: new httpAgent({ keepAlive: true }) //keepaliveAgent
         }
 
         return new Promise<XMLHttpRequest>((resolve, reject) => {

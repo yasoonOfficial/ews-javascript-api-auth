@@ -1,6 +1,6 @@
-import { FetchStream, fetchUrl, Meta } from 'fetch';
-import * as  Promise from "bluebird";
-import { IXHROptions, IXHRApi, IXHRProgress } from "./ews.partial";
+import { FetchStream, Meta, fetchUrl } from '@yasoon/dns-all-fetch';
+import * as Promise from "bluebird";
+import { IXHRApi, IXHROptions, IXHRProgress } from "./ews.partial";
 import { setupXhrResponse } from "./utils";
 
 export class cookieAuthXhrApi implements IXHRApi {

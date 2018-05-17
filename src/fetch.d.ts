@@ -1,4 +1,4 @@
-declare module 'fetch' {
+declare module '@yasoon/dns-fetch-all' {
     export interface Meta {
         status: number;
         responseHeaders: any

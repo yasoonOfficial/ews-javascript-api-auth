@@ -1,5 +1,5 @@
 {
-  "name": "ews-javascript-api-auth",
+  "name": "@yasoon/ews-javascript-api-auth",
   "version": "1.2.1",
   "description": "Library to Help with non-Basic Authentication methods with ews-javascript-api package",
   "main": "src/index.js",
@@ -17,12 +17,12 @@
   "author": "Gautam Singh (@gautamsi)",
   "license": "MIT",
   "dependencies": {
+    "@yasoon/dns-all-fetch": "^1.2.0",
     "bluebird": "^3.4.6",
-    "fetch": "^1.0.1",
     "ntlm-client": "git+https://git@github.com/gautamsi/node-ntlm-client.git"
   },
   "devDependencies": {
     "@types/bluebird": "^3.0.36",
-    "@types/node": "^6.0.52"    
+    "@types/node": "^6.0.52"
   }
 }

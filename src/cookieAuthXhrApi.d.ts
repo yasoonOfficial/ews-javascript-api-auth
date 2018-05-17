@@ -1,6 +1,6 @@
 /// <reference types="bluebird" />
 import * as Promise from "bluebird";
-import { IXHROptions, IXHRApi, IXHRProgress } from "./ews.partial";
+import { IXHRApi, IXHROptions, IXHRProgress } from "./ews.partial";
 export declare class cookieAuthXhrApi implements IXHRApi {
     private stream;
     private username;
