@@ -45,6 +45,7 @@ export class ntlmAuthXhrApi implements IXHRApi {
             url: xhroptions.url,
             //payload: xhroptions.data,
             headers: xhroptions.headers,
+            asyncDnsLoookup: true,
             method: 'GET',
             agentHttps: new httpsAgent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }), //keepaliveAgent
             agentHttp: new httpAgent({ keepAlive: true }) //keepaliveAgent
@@ -89,6 +90,7 @@ export class ntlmAuthXhrApi implements IXHRApi {
             url: xhroptions.url,
             //payload: xhroptions.data,
             headers: xhroptions.headers,
+            asyncDnsLoookup: true,
             method: 'GET',
             agentHttps: new httpsAgent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }), //keepaliveAgent
             agentHttp: new httpAgent({ keepAlive: true }) //keepaliveAgent
