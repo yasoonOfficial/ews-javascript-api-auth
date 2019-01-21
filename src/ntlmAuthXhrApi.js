@@ -39,7 +39,9 @@ var ntlmAuthXhrApi = /** @class */ (function () {
             url: xhroptions.url,
             //payload: xhroptions.data,
             headers: xhroptions.headers,
+            asyncDnsLoookup: true,
             method: 'GET',
+            strictSSL: false,
             agentHttps: new https_1.Agent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }),
             agentHttp: new http_1.Agent({ keepAlive: true }) //keepaliveAgent
         };
@@ -79,7 +81,9 @@ var ntlmAuthXhrApi = /** @class */ (function () {
             url: xhroptions.url,
             //payload: xhroptions.data,
             headers: xhroptions.headers,
+            asyncDnsLoookup: true,
             method: 'GET',
+            strictSSL: false,
             agentHttps: new https_1.Agent({ keepAlive: true, rejectUnauthorized: !this.allowUntrustedCertificate }),
             agentHttp: new http_1.Agent({ keepAlive: true }) //keepaliveAgent
         };
